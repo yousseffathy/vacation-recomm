@@ -1,0 +1,64 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tests",
+  "info": {
+    "singularName": "test",
+    "pluralName": "tests",
+    "displayName": "city",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "City": {
+      "type": "string"
+    },
+    "Continent": {
+      "type": "string"
+    },
+    "Country": {
+      "type": "string"
+    },
+    "Jan": {
+      "type": "decimal"
+    },
+    "Feb": {
+      "type": "decimal"
+    },
+    "Mar": {
+      "type": "decimal"
+    },
+    "Apr": {
+      "type": "decimal"
+    },
+    "May": {
+      "type": "decimal"
+    },
+    "Jun": {
+      "type": "decimal"
+    },
+    "Jul": {
+      "type": "decimal"
+    },
+    "Aug": {
+      "type": "decimal"
+    },
+    "Sep": {
+      "type": "decimal"
+    },
+    "Oct": {
+      "type": "decimal"
+    },
+    "Nov": {
+      "type": "decimal"
+    },
+    "Dec": {
+      "type": "decimal"
+    },
+    "Year": {
+      "type": "decimal"
+    }
+  }
+}
