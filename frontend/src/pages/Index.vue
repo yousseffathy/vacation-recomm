@@ -1,14 +1,15 @@
 <template>
   <Layout>
-    <v-container>
-      <v-row>
-        <v-col md="6">
+    <v-parallax class="mb-16" dark src="https://images.pexels.com/photos/753626/pexels-photo-753626.jpeg">
+      <v-container style="background-color: white; " rounded>
+        <v-row align="center"
+      justify="center">
+        <v-col cols="12" sm="12" md="6">
             <v-card
               flat
-              color="transparent"
+              color="white"
             >
               <v-subheader>Min and max range slider</v-subheader>
-
               <v-card-text>
                 <v-row>
                   <v-col class="px-4">
@@ -47,48 +48,94 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col sm="8" md="4">
-            <v-select
-              class="ml-4"
-              style="max-width: 300px;"
-              dense
-              hide-details
-              v-model="selectedContinents"
-              :items="Continents"
-              label="Continents"
-              multiple
-            >
-            <template v-slot:prepend-item>
-                <v-list-item
-                  ripple
-                  @mousedown.prevent
-                  @click="toggle"
-                >
-                  <v-list-item-action>
-                    <v-icon :color="selectedContinents.length > 0 ? 'indigo darken-4' : ''">
-                      {{ icon }}
-                    </v-icon>
-                  </v-list-item-action>
-                  <v-list-item-content>
-                    <v-list-item-title>
-                      Select All
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-divider class="mt-2"></v-divider>
-              </template>
-            </v-select>
+          <v-col cols="9" sm="8" md="4">
+            <v-container fluid>
+              <v-select
+                v-model="selectedContinents"
+                :items="Continents"
+                label="Choose Continents"
+                multiple
+                filled
+                dense
+                hide-details
+              >
+                <template v-slot:selection="{ item, index }">
+                  <v-chip v-if="index === 0">
+                    <span>{{ item }}</span>
+                  </v-chip>
+                  <span
+                    v-if="index === 1"
+                    class="grey--text text-caption"
+                  >
+                    (+{{ selectedContinents.length - 1 }} others)
+                  </span>
+                </template>
+              </v-select>
+            </v-container>
           </v-col>
-          <v-col sm="4" md="2">
-            <v-btn>
+          <v-col cols="3" sm="4" md="2">
+            <v-btn @click="search">
               search
             </v-btn>
           </v-col>
       </v-row>
-    </v-container>
-    
+      </v-container>
+    </v-parallax>
+     <v-row class="justify-space-around">
+      <v-card
+        v-for="edge in cities" :key="edge.node.id"
+        width="45%"
+        class="mt-5 mb-5"
+      >
+        <v-img
+          class="white--text align-end"
+          height="200px"
+          :src="`https://images.pexels.com/photos/753626/pexels-photo-753626.jpeg`"
+        />
+
+        <v-card-title>{{ edge.node.City }}</v-card-title>
+
+        <v-card-subtitle class="pb-0">{{ edge.node.Country }} , {{ edge.node.Continent }}</v-card-subtitle>
+
+        <v-card-actions>
+          <v-btn 
+            color="orange"
+            text
+          >
+            More Info
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-row>
   </Layout>
 </template>
+
+<page-query>
+  query {
+  cities: allCity(limit: 500) {
+    edges{
+      node {
+        id,
+        City,
+        Country,
+        Continent,
+        Jan,
+        Feb,
+        Mar,
+        Apr,
+        Jun,
+        Jul,
+        Aug,
+        Sep,
+        Oct,
+        Nov,
+        Dec,
+        Year
+      }
+    }
+  }
+}
+</page-query>
 
 <script>
   export default {
@@ -103,6 +150,7 @@
         
       ],
       selectedContinents: [],
+      cities: [],
       min: -20,
       max: 60,
       range: [0, 25],
@@ -121,6 +169,13 @@
       },
     },
     methods: {
+      search () {
+        console.log("hello");
+        this.cities = this.$page.cities.edges.filter((edge) => {
+          return  (edge.node.Jan >= this.range[0] && edge.node.Jan <= this.range[1])
+        })
+        console.log(this.cities);
+      },
       toggle () {
         this.$nextTick(() => {
           if (this.likesAllContinents) {
