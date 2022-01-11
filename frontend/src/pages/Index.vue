@@ -71,7 +71,7 @@
      <v-row class="justify-space-around">
       <v-card
         v-for="edge in cities" :key="edge.node.id"
-        width="45%"
+        width="85%"
         class="mt-5 mb-5"
       >
         <v-img
@@ -110,6 +110,7 @@
         Feb,
         Mar,
         Apr,
+        May,
         Jun,
         Jul,
         Aug,
