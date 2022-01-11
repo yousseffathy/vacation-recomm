@@ -83,15 +83,7 @@
         <v-card-title>{{ edge.node.City }}</v-card-title>
 
         <v-card-subtitle class="pb-0">{{ edge.node.Country }} , {{ edge.node.Continent }}</v-card-subtitle>
-
-        <v-card-actions>
-          <v-btn 
-            color="orange"
-            text
-          >
-            More Info
-          </v-btn>
-        </v-card-actions>
+        <v-card-subtitle class="pb-0"> Average temperature in {{ selectedMonth }} is {{edge.node[`${selectedMonth}`]}}  , and the average of the year is {{ edge.node.Year }}</v-card-subtitle>
       </v-card>
     </v-row>
   </Layout>
