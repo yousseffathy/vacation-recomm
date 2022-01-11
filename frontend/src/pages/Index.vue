@@ -9,7 +9,7 @@
               flat
               color="white"
             >
-              <v-subheader>Min and max range slider</v-subheader>
+              <v-subheader>Min and max temperature in celsius</v-subheader>
               <v-card-text>
                 <v-row>
                   <v-col class="px-4">
