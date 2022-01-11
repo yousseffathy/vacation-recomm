@@ -51,25 +51,12 @@
           <v-col cols="9" sm="8" md="4">
             <v-container fluid>
               <v-select
-                v-model="selectedContinents"
-                :items="Continents"
-                label="Choose Continents"
-                multiple
-                filled
+                v-model="selectedMonth"
+                :items="Months"
+                label="Choose Month"
                 dense
                 hide-details
               >
-                <template v-slot:selection="{ item, index }">
-                  <v-chip v-if="index === 0">
-                    <span>{{ item }}</span>
-                  </v-chip>
-                  <span
-                    v-if="index === 1"
-                    class="grey--text text-caption"
-                  >
-                    (+{{ selectedContinents.length - 1 }} others)
-                  </span>
-                </template>
               </v-select>
             </v-container>
           </v-col>
@@ -140,49 +127,30 @@
 <script>
   export default {
     data: () => ({
-      Continents: [
-        "Africa",
-        "Asia",
-        "Australia/Oceania",
-        "Europe",
-        "North America",
-        "South America",
-        
+      Months: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
       ],
-      selectedContinents: [],
+      selectedMonth: "Jan",
       cities: [],
       min: -20,
       max: 60,
       range: [0, 25],
     }),
-    computed: {
-      likesAllContinents () {
-        return this.selectedContinents.length === this.Continents.length
-      },
-      likesSomeContinents () {
-        return this.selectedContinents.length > 0 && !this.likesAllFruit
-      },
-      icon () {
-        if (this.likesAllContinents) return 'mdi-close-box'
-        if (this.likesSomeContinents) return 'mdi-minus-box'
-        return 'mdi-checkbox-blank-outline'
-      },
-    },
     methods: {
       search () {
-        console.log("hello");
         this.cities = this.$page.cities.edges.filter((edge) => {
-          return  (edge.node.Jan >= this.range[0] && edge.node.Jan <= this.range[1])
-        })
-        console.log(this.cities);
-      },
-      toggle () {
-        this.$nextTick(() => {
-          if (this.likesAllContinents) {
-            this.selectedContinents = []
-          } else {
-            this.selectedContinents = this.Continents.slice()
-          }
+          return  (edge.node[`${this.selectedMonth}`] >= this.range[0] && edge.node[`${this.selectedMonth}`] <= this.range[1])
         })
       },
     },
